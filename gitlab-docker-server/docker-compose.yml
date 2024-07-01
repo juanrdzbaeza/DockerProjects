@@ -1,0 +1,32 @@
+# version: '3.8'
+services:
+  web:
+    image: 'gitlab/gitlab-ce:latest'
+    container_name: gitlab_ce
+    restart: always
+    hostname: 'gitlab.juanrdzbaeza.com'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'https://gitlab.juanrdzbaeza.com'
+    ports:
+      - '80:80'
+      - '443:443'
+      - '22:22'
+    volumes:
+      - '$GITLAB_HOME/config:/etc/gitlab'
+      - '$GITLAB_HOME/logs:/var/log/gitlab'
+      - '$GITLAB_HOME/data:/var/opt/gitlab'
+    shm_size: '256m'
+    secrets:
+      - gitlab_root_password
+
+  gitlab_docs:
+    image: registry.gitlab.com/gitlab-org/gitlab-docs:latest
+    container_name: gitlab_ce_docs
+    hostname: 'https://docs.gitlab.juanrdzbaeza.com:4000'
+    ports:
+      - '4000:4000'
+
+secrets:
+  gitlab_root_password:
+    file: ./root_password.txt
