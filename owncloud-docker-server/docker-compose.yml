@@ -37,7 +37,7 @@ services:
       timeout: 10s
       retries: 5
     volumes:
-      - /media/jrodbae/32GB2/data:/mnt/data
+      - files:/mnt/data
 
   mariadb:
     image: mariadb:lts-ubi9 # minimum required ownCloud version is 10.9
