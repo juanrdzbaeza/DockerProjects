@@ -9,7 +9,7 @@ To get started with the projects, follow these steps:
 1. Clone the repository:
    
    ```bash
-   git clone https://github.com/juan/DockerProjects.git
+   git clone https://github.com/juanrdzbaeza/DockerProjects.git
    ```
 
 2. Navigate to the desired project directory:
