@@ -1,12 +1,15 @@
 #!/bin/bash
 
-# 🍺 Homebrew
-# Homebrew es el gestor de paquetes por excelencia en MacOS, para instalarlo solamente basta con ejecutar el siguiente comando en la terminal:
+# Detener el script si algún comando falla
+set -e
 
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# 🍺 Homebrew
+# Homebrew es el gestor de paquetes por excelencia en MacOS, para instalarlo solamente basta con ejecutar el siguiente comando en la terminal:
+if ! command -v brew &> /dev/null; then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
 
 # Dependencies
-
 # Install Ninja using Homebrew
 brew install ninja
 # Install pkg-config using Homebrew
@@ -17,7 +20,7 @@ brew install glib
 brew install pixman
 
 # 🍒 Git
-# Instalar Git, haremos uso del gestor de paquetes instalado anteriormente, opcionl 
+# Instalar Git, haremos uso del gestor de paquetes instalado anteriormente, opcional 
 # brew install git
 
 # 🖥️🖥️ QEMU
@@ -37,14 +40,11 @@ sudo make install
 
 # 🐳 Docker
 # Para instalar Docker, haremos uso del gestor de paquetes instalado anteriormente:
-
 brew install docker
 brew install docker-compose
 
-
 # 🍋 Colima
 # Una vez tengamos Docker, instalamos Colima, lanzando desde la terminal el comando:
-
 # Instalar jq con brew
 brew install jq
 
@@ -52,7 +52,7 @@ brew install jq
 VERSION=$(curl -fsSL https://api.github.com/repos/lima-vm/lima/releases/latest | jq -r .tag_name)
 
 # Descargar el binario de lima y descomprimirlo en /usr/local
-curl -fsSL "https://github.com/lima-vm/lima/releases/download/${VERSION}/lima-${VERSION:1}-$(uname -s)-$(uname -m).tar.gz" | tar Cxzvm /usr/local
+curl -fsSL "https://github.com/lima-vm/lima/releases/download/${VERSION}/lima-${VERSION:1}-$(uname -s)-$(uname -m).tar.gz" | sudo tar Cxzvm /usr/local
 
 # brew install colima
 
