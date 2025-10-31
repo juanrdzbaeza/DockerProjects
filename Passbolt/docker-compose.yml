@@ -1,5 +1,3 @@
-version: "3"
-
 services:
   mariadb:
     image: mariadb:10.11
@@ -21,15 +19,10 @@ services:
       DATASOURCES_DEFAULT_USERNAME: ${DATASOURCES_DEFAULT_USERNAME}
       DATASOURCES_DEFAULT_PASSWORD: ${DATASOURCES_DEFAULT_PASSWORD}
       DATASOURCES_DEFAULT_DATABASE: ${DATASOURCES_DEFAULT_DATABASE}
-      EMAIL_DEFAULT_FROM: ${EMAIL_DEFAULT_FROM}
-      EMAIL_TRANSPORT_DEFAULT_HOST: ${EMAIL_TRANSPORT_DEFAULT_HOST}
-      EMAIL_TRANSPORT_DEFAULT_PORT: ${EMAIL_TRANSPORT_DEFAULT_PORT}
-      EMAIL_TRANSPORT_DEFAULT_USERNAME: ${EMAIL_TRANSPORT_DEFAULT_USERNAME}
-      EMAIL_TRANSPORT_DEFAULT_PASSWORD: ${EMAIL_TRANSPORT_DEFAULT_PASSWORD}
     ports:
       - "80:80"  # HTTP
       - "443:443"  # HTTPS (para configurar más adelante)
-    volumes:
-      - ./passbolt_data:/etc/passbolt
-      - ./certs:/etc/ssl/certs  # Montaje para certificados SSL futuros
-      - ./private:/etc/ssl/private  # Montaje para claves privadas futuras
+    # volumes:
+    #   - ./passbolt_data:/etc/passbolt
+    #   - ./certs:/etc/ssl/certs  # Montaje para certificados SSL futuros (comentado para pruebas)
+    #   - ./private:/etc/ssl/private  # Montaje para claves privadas futuras (comentado para pruebas)
