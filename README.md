@@ -1,51 +1,54 @@
+
 # DockerProjects
 
-This repository contains a collection of Docker projects, each showcasing a different application or service utilizing Docker for containerization and orchestration.
+Este repositorio contiene una colección de proyectos Docker, cada uno mostrando una aplicación o servicio diferente usando contenedores y orquestación con Docker Compose.
 
-## Getting Started
+## Requisitos
 
-To get started with the projects, follow these steps:
+- Docker instalado en el sistema (Linux o MacOS).
+- Permisos de usuario para ejecutar Docker.
 
-1. Clone the repository:
-   
+## Instalación rápida
+
+1. Clona el repositorio:
    ```bash
    git clone https://github.com/juanrdzbaeza/DockerProjects.git
+   cd DockerProjects
    ```
 
-2. Navigate to the desired project directory:
-   
+2. Instala Docker y dependencias usando los scripts incluidos:
+
+   - **Linux:**
+     ```bash
+     ./start-engine-linux.sh
+     ```
+     Este script instala Docker y configura el usuario para usarlo sin sudo.
+
+   - **MacOS:**
+     ```bash
+     ./start-engine-macos.sh
+     ```
+     Este script instala Homebrew, QEMU, Docker, Colima y dependencias necesarias.
+
+3. Accede al subproyecto que desees:
    ```bash
-   cd DockerProjects/<project_name>
+   cd <subproyecto>
    ```
+   Por ejemplo: `cd Passbolt` o `cd portainer`
 
-3. Build the Docker image:
-   
+4. Levanta el servicio con Docker Compose:
    ```bash
-   docker build -t <image_name> .
+   docker compose -f docker-compose.yml up -d
    ```
+   (El nombre del archivo puede variar según el subproyecto)
 
-4. Run the Docker container:
-   
-   ```bash
-   docker run -d -p <host_port>:<container_port> <image_name>
-   ```
-
-## Requirements
-
-- Docker installed on the local machine.
-
-## Installation
-
-The projects can be installed by cloning the repository and following the 'Getting Started' instructions.
-
-## Project Structure
-
-The project's directory structure is as follows:
+## Estructura del proyecto
 
 ```
 DockerProjects/
 ├── README.md
-├── start-engine.sh
+├── start-engine-linux.sh
+├── start-engine-macos.sh
 ├── license
 ├── gitlab-docker-server/
 │   └── docker-compose.yml
@@ -55,40 +58,39 @@ DockerProjects/
 │   └── docker-compose.yml
 ├── owncloud-docker-server/
 │   └── docker-compose.yml
-└── portainer/
-    └── docker-compose.yml
+├── portainer/
+│   └── docker-compose.yml
+└── Passbolt/
+    ├── docker-compose-ce.yaml
+    ├── .env
+    ├── first-user.sh
+    ├── individual-user.sh
+    ├── seconds-users.sh
+    ├── generate-login-url.sh
+    └── README.md
 ```
 
-## Additional Information
+## Información sobre los scripts de arranque
 
-The `start-engine.sh` script automates the installation of dependencies, QEMU, Docker, and Colima. It uses Homebrew to manage package installation.
+- `start-engine-linux.sh`: Automatiza la instalación de Docker en sistemas Linux compatibles (Debian, Ubuntu, Fedora, RHEL). Añade el usuario al grupo docker y habilita el servicio.
+- `start-engine-macos.sh`: Instala Homebrew, dependencias, QEMU, Docker y Colima en MacOS. Permite gestionar contenedores y máquinas virtuales.
 
-To install Colima, follow these steps:
+## Subproyectos destacados
 
-1. Install jq using Homebrew:
-   
-   ```bash
-   brew install jq
-   ```
+- **Passbolt:** Gestor de contraseñas para equipos, con scripts para automatizar usuarios y recuperación de cuentas.
+- **Portainer:** Interfaz web para gestionar contenedores Docker.
+- **OwnCloud:** Almacenamiento y sincronización de archivos.
+- **Minipaint, GIMP, Gitlab:** Otros servicios y aplicaciones dockerizadas.
 
-2. Get the latest version of lima:
-   ```bash
-   VERSION=$(curl -fsSL https://api.github.com/repos/lima-vm/lima/releases/latest | jq -r .tag_name)
-   ```
+Cada subproyecto tiene su propio archivo `docker-compose.yml` y puede incluir scripts adicionales para facilitar la gestión.
 
-3. Download and extract lima:
-   ```bash
-   curl -fsSL "https://github.com/lima-vm/lima/releases/download/${VERSION}/lima-${VERSION:1}-$(uname -s)-$(uname -m).tar.gz" | tar Cxzvm /usr/local
-   ```
+## Seguridad y buenas prácticas
 
-4. Install Colima:
-   ```bash
-   brew install colima
-   ```
+- No publiques archivos `.env` con contraseñas reales.
+- Cambia las contraseñas de ejemplo antes de poner en producción.
+- Usa variables de entorno para datos sensibles siempre que sea posible.
 
-Once Colima is installed, you can use it to manage Docker containers and virtual machines.
+## Licencia
 
-## License
-
-This project is licensed under the [MIT License](https://github.com/juanrdzbaeza/DockerProjects/blob/main/license).
+Este proyecto está licenciado bajo la [MIT License](https://github.com/juanrdzbaeza/DockerProjects/blob/main/license).
 
