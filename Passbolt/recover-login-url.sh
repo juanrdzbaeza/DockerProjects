@@ -12,4 +12,4 @@ EMAIL="$1"
 docker compose -f docker-compose-ce.yaml \
 exec passbolt su -m -c "/usr/share/php/passbolt/bin/cake \
   passbolt recover_user \
-    -u $EMAIL --create" -s /bin/sh www-data
+    -u $EMAIL" -s /bin/sh www-data
